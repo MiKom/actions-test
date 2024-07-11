@@ -1,0 +1,22 @@
+
+name: CI
+on: [push]
+
+jobs:
+  build:
+    runs-on: ${{matrix.os}}
+    
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    steps:
+      - name: Show env windows
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: (echo $env:PATH).replace(";", "`n")
+
+      - name: Show env
+        if: runner.os == 'Linux'
+        shell: pwsh
+        run: (echo $env:PATH).replace(":", "`n")
